@@ -1,17 +1,12 @@
 #!/bin/sh
 
-indent() {
-  sed -u 's/^/       /'
-}
-
 echo "-----> Upgrading curl"
-DOWNLOAD_URL="http://archive.ubuntu.com/ubuntu/pool/main/c/curl/curl_7.37.1.orig.tar.gz"
 
-echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
-
-wget $DOWNLOAD_URL
-tar -xf curl_7.37.1.orig.tar.gz
-cd curl-7.37.1
-configure
+apt-get install build-essential nghttp2 libnghttp2-dev
+wget https://curl.haxx.se/download/curl-7.54.0.tar.bz2
+tar -xvjf curl-7.54.0.tar.bz2
+cd curl-7.54.0
+./configure --with-nghttp2
 make
 make install
+ldconfig
